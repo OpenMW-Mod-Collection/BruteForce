@@ -1,0 +1,4 @@
+PLAYER: scripts/BruteForce/player.lua
+GLOBAL: scripts/BruteForce/global.lua
+
+MENU: scripts/BruteForce/settingsMenu.lua

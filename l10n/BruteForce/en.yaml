@@ -1,0 +1,32 @@
+# +----------+
+# | Messages |
+# +----------+
+
+too_weak: This lock is too sturdy.
+lock_got_jammed: Lock got bent.
+lock_was_jammed: This lock is already bent.
+
+# +----------+
+# | Settings |
+# +----------+
+
+page_name: Brute Force
+page_description: Allows breaking locks with melee weapons.
+
+settings_group_name: Settings
+strBonus_name: Strength Requirement
+strBonus_description: >
+  To break a lock you need (LockLevel + StrengthRequirement) amount of strength.
+jamChance_name: Chance to Bend Lock
+jamChance_description: |
+  Bent locks can't be opened with weapons anymore. Use traditional lockpicking methods instead.
+
+  Set it to 0 to disable this feature.
+enableXpReward_name: Enable Weapon XP Reward
+enableXpReward_description: Counts successfully split lock as 1 successful hit.
+damageContentsOnUnlock_name: Damage Equipment in Containers
+damageContentsOnUnlock_description: Amount of damage is completely random.
+
+debug_group_name: Debug
+modEnabled_name: Enable Mod
+alwaysHit_name: Disable Misses
