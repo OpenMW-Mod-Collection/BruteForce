@@ -19,11 +19,6 @@ function logic.registerAttack(o)
 end
 
 function logic.attackMissed(o)
-    if I.BruteForce.isLockJammed(o.id) then
-        self:sendEvent('ShowMessage', { message = l10n("lock_was_jammed") })
-        return true
-    end
-
     -- check strength
     local str = self.type.stats.attributes.strength(self).modified
     local lockLevel = types.Lockable.getLockLevel(o)
@@ -48,7 +43,7 @@ function logic.unlock(o)
         return true
     else
         -- jam lock
-        I.BruteForce.setJammedLock(o.id, true)
+        core.sendGlobalEvent("setJammedLock", { id = o.id, val = true })
         self:sendEvent('ShowMessage', { message = l10n("lock_got_jammed") })
         return false
     end

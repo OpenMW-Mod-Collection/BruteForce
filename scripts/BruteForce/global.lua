@@ -1,37 +1,44 @@
-local world = require("openmw.world")
-
-local time = require("openmw_aux.time")
 local types = require("openmw.types")
+local core = require("openmw.core")
+local I = require("openmw.interfaces")
 
-local function checkLockables()
-    for _, player in ipairs(world.players) do
-        for _, obj in ipairs(player.cell:getAll(types.Door)) do
-            if not types.Lockable.isLocked(obj) then
-                player:sendEvent("jammedLockOpen", {id = obj.id})
-            end
-        end
-        for _, obj in ipairs(player.cell:getAll(types.Container)) do
-            if not types.Lockable.isLocked(obj) then
-                player:sendEvent("jammedLockOpen", {id = obj.id})
-            end
-        end
+require("scripts.BruteForce.utils.consts")
+
+local l10n = core.l10n("BruteForce")
+
+local function lockableOpen(o, actor)
+    JammedLocks[o.id] = nil
+end
+
+local function onLoad(savedData)
+    JammedLocks = savedData
+    I.Activation.addHandlerForType(types.Door, lockableOpen)
+    I.Activation.addHandlerForType(types.Container, lockableOpen)
+end
+
+local function onSave()
+    return JammedLocks
+end
+
+local function checkJammedLock(data)
+    if JammedLocks[data.o.id] then
+        data.sender:sendEvent('ShowMessage', { message = l10n("lock_was_jammed") })
+    else
+        data.sender:sendEvent("tryUnlocking", { o = data.o })
     end
 end
 
-time.runRepeatedly(
-    checkLockables,
-    5,
-    { type = time.SimulationTime })
-
-local function onUnlock(data)
-    print("hoi")
-    for _, player in ipairs(world.players) do
-        player:sendEvent("jammedLockOpen", {id = data.target.id})
-    end
+local function setJammedLock(data)
+    JammedLocks[data.id] = data.val
 end
 
 return {
+    engineHandlers = {
+        onLoad = onLoad,
+        onSave = onSave,
+    },
     eventHandlers = {
-        Unlock = onUnlock,
+        checkJammedLock = checkJammedLock,
+        setJammedLock = setJammedLock,
     },
 }
