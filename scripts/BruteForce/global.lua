@@ -23,13 +23,16 @@ local function checkJammedLock(data)
         data.sender:sendEvent('ShowMessage', { message = l10n("lock_was_jammed") })
     else
         local o = data.o
-        local inv = o.type.inventory(o)
-        -- populate leveled list if needed
-        if not inv:isResolved() then
-            inv:resolve()
+
+        if types.Container.objectIsInstance(o) then
+            local inv = o.type.inventory(o)
+            -- populate container's leveled list if needed
+            if not inv:isResolved() then
+                inv:resolve()
+            end
         end
 
-        data.sender:sendEvent("tryUnlocking", { o = data.o })
+        data.sender:sendEvent("tryUnlocking", { o = o })
     end
 end
 

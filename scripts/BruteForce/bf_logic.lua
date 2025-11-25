@@ -60,12 +60,14 @@ function logic.giveCurrWeaponXp()
     )
 end
 
-local function aggroGuard(actor)
-    local class = actor.type.records[actor.recordId].class
-    if string.lower(class) == "guard"
-        or string.find(actor.recordId, "guard")
-    then
-        actor:sendEvent('StartAIPackage', { type = 'Pursue', target = self.object })
+local function aggroGuards()
+    for _, actor in ipairs(nearby.actors) do
+        local class = actor.type.records[actor.recordId].class
+        if string.lower(class) == "guard"
+            or string.find(actor.recordId, "guard")
+        then
+            actor:sendEvent('StartAIPackage', { type = 'Pursue', target = self.object })
+        end
     end
 end
 
@@ -83,21 +85,17 @@ function logic.alertNpcs()
     local losMaxDist = losMaxDistBase - sneak * losMaxDistSneakModifier
     local soundRange = soundRangeBase - weaponSkill * soundRangeWeaponSkillModifier
 
-    local detected = false
-
     for _, actor in ipairs(nearby.actors) do
-        if types.NPC.objectIsInstance(actor) then
-            if detection.canNpcSeePlayer(actor, self, nearby, losMaxDist)
-                or detection.isWithinDistance(actor, self, soundRange)
-            then
-                detected = true
-                aggroGuard(actor)
-            end
-        end
-    end
+        local isNPC       = types.NPC.objectIsInstance(actor)
+        local isPlayer    = types.Player.objectIsInstance(actor)
+        local seesPlayer  = detection.canNpcSeePlayer(actor, self, nearby, losMaxDist)
+        local hearsPlayer = detection.isWithinDistance(actor, self, soundRange)
 
-    if detected then
-        core.sendGlobalEvent("addBounty", { player = self, bounty = bounty })
+        if isNPC and not isPlayer and (seesPlayer or hearsPlayer) then
+            core.sendGlobalEvent("addBounty", { player = self, bounty = bounty })
+            aggroGuards()
+            break
+        end
     end
 end
 
