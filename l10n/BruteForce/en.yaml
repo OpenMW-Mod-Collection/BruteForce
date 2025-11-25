@@ -25,7 +25,26 @@ jamChance_description: |
 enableXpReward_name: Enable Weapon XP Reward
 enableXpReward_description: Counts successfully split lock as 1 successful hit.
 damageContentsOnUnlock_name: Damage Equipment in Containers
-damageContentsOnUnlock_description: Amount of damage is completely random.
+damageContentsOnUnlock_description: Amount of damage ranges from 1 to max durability.
+
+alerting_group_name: Alerting
+alerting_group_description: |
+  Breaking an owned lock will alert NPCs in two ways:
+
+  1. If you're in their line of sight -> LoSBaseDist - SneakSkill * SneakMultiplier
+
+  2. If they're close enough to you (ignores walls) -> SoundBaseDist - WeaponSkill * WeaponSkillMultiplier
+
+  For reference, river Odai in Balmora is around 1000 units wide. And Ra'virr is aroung 600 units away from his locked chest behind the staircase.
+bounty_name: Bounty for Breaking Owned Locks
+bounty_description: |
+  Vanilla bounty for trespassing is 5. Which is comically low.
+
+  Set it to 0 to disable all consequences for breaking owned locks.
+losMaxDistBase_name: LoS Base Max Distance
+losMaxDistSneakModifier_name: LoS Sneak Skill Multiplier
+soundRangeBase_name: Sound Base Max Distance
+soundRangeWeaponSkillModifier_name: Sound Weapon Skill Multiplier
 
 debug_group_name: Debug
 modEnabled_name: Enable Mod
