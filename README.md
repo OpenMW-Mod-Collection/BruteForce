@@ -30,15 +30,17 @@ It shouldn't be a surprise that hitting a lock with a chunk of metal (or anythin
 
 If you hit an owned lock, two things happen for each present NPC:
 
-1. A long distance line of sight check (influenced by Sneak level) - NPC moved a head in the direction of noise and saw you with a weapon. Imagine a look on their face.
-2. A shorter distance distance check (influenced by Weapon Skill level) - NPC heard loud noise even through a wall. Your crime has been reported immediately.
+1. **A long distance line of sight check** (influenced by Sneak level) - NPC moved a head in the direction of noise and saw you with a weapon. Imagine a look on their face.
+2. **A shorter distance distance check** (influenced by Weapon Skill level) - NPC heard loud noise even through a wall. Your crime has been reported immediately.
 
-At first I thought that it would be too restrictive. But let's be real - barbarians aren't supposed to be super good at thievery in the first place.  
+At first I thought that it would be too restrictive. But let's be real - barbarians aren't supposed to be super good at thievery in the first place. They don't avoid combat - they initiate it!  
 All values, of course, are configurable too.
 
-### Known Issues
+## Known Issues
 
-Bent lock status is removed only when on opening it's container/door. So if you bend a lock, unlock it the traditional way, lock it back with a spell or console command without interacting with door/container it was locking, the mod will continue thinking that the lock is still bent. This is intended, since it's impact is negligible and making additional checks on cell transition would harm the performance more than helping it.
+### Lock's "bent" status is removed only when a player opens it's container/door
+
+So if you bend a lock, unlock it the traditional way, lock it back with a spell or console command without interacting with door/container it was locking, the mod will continue thinking that the lock is still bent. This is intended, since it's impact is negligible and making additional checks on cell transition would harm the performance more than helping it.
 
 ## Requirements
 
