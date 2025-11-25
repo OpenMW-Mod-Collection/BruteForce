@@ -27,15 +27,10 @@ local function tryUnlocking(data)
     end
 end
 
-local function onLoad(savedData)
-    omw_utils.checkDependencies(self, Dependencies)
-    I.impactEffects.addHitObjectHandler(onObjectHit)
-end
+omw_utils.checkDependencies(self, Dependencies)
+I.impactEffects.addHitObjectHandler(onObjectHit)
 
 return {
-    engineHandlers = {
-        onLoad = onLoad,
-    },
     eventHandlers = {
         tryUnlocking = tryUnlocking,
     },

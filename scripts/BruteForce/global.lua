@@ -12,8 +12,6 @@ end
 
 local function onLoad(savedData)
     JammedLocks = savedData
-    I.Activation.addHandlerForType(types.Door, lockableOpen)
-    I.Activation.addHandlerForType(types.Container, lockableOpen)
 end
 
 local function onSave()
@@ -24,6 +22,13 @@ local function checkJammedLock(data)
     if JammedLocks[data.o.id] then
         data.sender:sendEvent('ShowMessage', { message = l10n("lock_was_jammed") })
     else
+        local o = data.o
+        local inv = o.type.inventory(o)
+        -- populate leveled list if needed
+        if not inv:isResolved() then
+            inv:resolve()
+        end
+
         data.sender:sendEvent("tryUnlocking", { o = data.o })
     end
 end
@@ -37,6 +42,9 @@ local function addBounty(data)
     local currrentBounty = player.type.getCrimeLevel(player)
     player.type.setCrimeLevel(player, currrentBounty + data.bounty)
 end
+
+I.Activation.addHandlerForType(types.Door, lockableOpen)
+I.Activation.addHandlerForType(types.Container, lockableOpen)
 
 return {
     engineHandlers = {

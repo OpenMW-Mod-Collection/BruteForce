@@ -47,29 +47,6 @@ function detection.canNpcSeePlayer(npc, self, nearby, maxDistance)
     return eyeToChestClear or chestToChestClear or eyeToFeetClear
 end
 
-function detection.canPlayerSeeNpc(npc, self, nearby, maxDistance)
-    if not self.cell then return false end
-    if not (npc and npc:isValid()) then return false end
-    if npc.cell ~= self.cell then return false end
-    if npc.type.isDead(npc) then return false end
-
-    local toNpc = npc.position - self.position
-    local distance = toNpc:length()
-
-    if distance > maxDistance then return false end
-
-    local npcChest          = npc.position + vChest
-    local npcFeet           = npc.position + vFeet
-    local playerEye         = self.position + vEye
-    local playerChest       = self.position + vChest
-
-    local eyeToChestClear   = clearRay(playerEye, npcChest, self, nearby, self)
-    local chestToChestClear = clearRay(playerChest, npcChest, self, nearby, self)
-    local eyeToFeetClear    = clearRay(playerEye, npcFeet, self, nearby, self)
-
-    return eyeToChestClear or chestToChestClear or eyeToFeetClear
-end
-
 ----------------------------------------------------------------------
 -- General distance
 ----------------------------------------------------------------------
