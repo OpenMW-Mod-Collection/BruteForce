@@ -43,6 +43,11 @@ All values, of course, are configurable too.
 [**Impact Effects**](https://www.nexusmods.com/morrowind/mods/55508) by taitechnic is a hard requirement.
 **Load Brute Force after Impact Effects!**
 
+## Consider Also
+
+- [SHOP](https://www.nexusmods.com/morrowind/mods/57747) by **skrow42** - Allows NPC to bash doors too!
+- [Oblivion-Style Lockpicking](https://www.nexusmods.com/morrowind/mods/56355) by **Ralts** - Completely overhauls lockpicking mechanic making it an actual mini-game
+
 ## Special Thanks
 
 **taitechnic** - making Impact Effects, which is core to this mod and a fantastic mod by itself.  
