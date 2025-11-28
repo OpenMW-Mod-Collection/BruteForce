@@ -161,7 +161,7 @@ function logic.weaponTooWorn(o)
     if not weapon or wearMod == 0 then return false end
 
     local lockLevel = types.Lockable.getLockLevel(o)
-    local weaponCondition = weapon.type.records[weapon.recordId].health
+    local weaponCondition = weapon.type.itemData(weapon).condition
 
     if lockLevel * wearMod > weaponCondition then
         self:sendEvent('ShowMessage', { message = l10n("weapon_too_worn") })
