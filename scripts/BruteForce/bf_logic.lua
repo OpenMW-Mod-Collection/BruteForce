@@ -17,7 +17,8 @@ local l10n = core.l10n("BruteForce")
 local logic = {}
 
 function logic.registerAttack(o)
-    return sectionDebug:get("modEnabled")
+    return o
+        and sectionDebug:get("modEnabled")
         and types.Lockable.objectIsInstance(o)
         and types.Lockable.isLocked(o)
 end

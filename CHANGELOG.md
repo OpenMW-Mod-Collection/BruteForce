@@ -1,5 +1,11 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 1.2.3
+
+### Fixes
+
+- Fixed hits against non-objects (terrain, water) breaking the mod
+
 ## 1.2.2
 
 ### Fixes
