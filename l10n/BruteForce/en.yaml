@@ -45,6 +45,7 @@ weaponWearModifier_name: Weapon Wear Modifier
 weaponWearModifier_description: |
   Weapon is worn down by (LockLevel * WeaponWearModifier) amount on each hit.
 enableWeaponWearAgainstBentLocks_name: Enable Weapon Wearing Against Bent Locks
+triggerTraps_name: Trigger Traps
 bounty_name: Bounty for Breaking Owned Locks
 bounty_description: |
   Vanilla bounty for trespassing is 5. Which is comically low.

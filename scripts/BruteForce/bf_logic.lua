@@ -181,6 +181,27 @@ function logic.damageIfH2h()
     })
 end
 
+function logic.triggerTrap(o, actor)
+    if not types.Lockable.objectIsInstance(o) then return end
+
+    local spell = o.type.getTrapSpell(o)
+    if not spell then return end
+
+    -- disarm trap
+    core.sendGlobalEvent("untrapObject", { o = o })
+
+    -- fire a spell on an actor
+    local effectsWithParams = core.magic.spells.records[spell.id].effects
+    local effects = {}
+    for _, effect in pairs(effectsWithParams) do
+        table.insert(effects, effect.index)
+    end
+    actor.type.activeSpells(actor):add({
+        id = spell.id,
+        effects = effects
+    })
+end
+
 function logic.wearWeapon(o, actor)
     local weaponSlot = types.Actor.EQUIPMENT_SLOT.CarriedRight
     local weapon = actor.type.getEquipment(actor, weaponSlot)

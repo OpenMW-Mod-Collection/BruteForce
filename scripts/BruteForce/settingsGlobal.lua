@@ -90,6 +90,12 @@ I.Settings.registerGroup {
             default = true,
         },
         {
+            key = 'triggerTraps',
+            name = 'triggerTraps_name',
+            renderer = 'checkbox',
+            default = true,
+        },
+        {
             key = 'bounty',
             name = 'bounty_name',
             description = 'bounty_description',

@@ -5,6 +5,7 @@
 ### Features
 
 - New SFX for breaking and bending locks
+- Breaking trapped locks trigger traps
 - Improved ownership checking
 
 ## 1.2.4

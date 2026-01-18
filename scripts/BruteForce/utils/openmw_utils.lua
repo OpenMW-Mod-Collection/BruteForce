@@ -93,7 +93,7 @@ function utils.objectIsOwned(o, player)
         return true
     end
 
-    if not o.owner.factionId then
+    if o.owner.factionId then
         local playerRank = player.type.getFactionRank(player, o.owner.factionId)
         local requiredRank = o.owner.factionRank or 1
         if playerRank < requiredRank then

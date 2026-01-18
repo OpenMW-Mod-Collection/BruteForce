@@ -41,6 +41,10 @@ local function lockWasntJammed(data)
     L.giveCurrWeaponXp()
     L.wearWeapon(o, self)
 
+    if sectionOnUnlock:get("triggerTraps") then
+        L.triggerTrap(o, self)
+    end
+
     if omw_utils.objectIsOwned(o, self) then
         L.alertNpcs()
     end
@@ -55,6 +59,10 @@ local function lockWasJammed(data)
 
     if sectionOnUnlock:get("enableWeaponWearAgainstBentLocks") then
         L.wearWeapon(o, self)
+    end
+
+    if sectionOnUnlock:get("triggerTraps") then
+        L.triggerTrap(o, self)
     end
 end
 

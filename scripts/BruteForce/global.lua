@@ -48,6 +48,12 @@ local function addBounty(data)
     omw_utils.addBounty(data.player, data.bounty)
 end
 
+local function untrapObject(data)
+    local o = data.o
+    if not types.Lockable.objectIsInstance(o) then return end
+    o.type.setTrapSpell(o, nil)
+end
+
 I.Activation.addHandlerForType(types.Door, lockableOpen)
 I.Activation.addHandlerForType(types.Container, lockableOpen)
 
@@ -60,5 +66,6 @@ return {
         checkJammedLock = checkJammedLock,
         setJammedLock = setJammedLock,
         addBounty = addBounty,
+        untrapObject = untrapObject,
     },
 }
