@@ -88,8 +88,20 @@ function utils.addBounty(actor, bounty)
     actor.type.setCrimeLevel(actor, currrentBounty + bounty)
 end
 
-function utils.objectIsOwned(o)
-    return o.owner.factionId or o.owner.recordId
+function utils.objectIsOwned(o, player)
+    if o.owner.recordId then
+        return true
+    end
+
+    if not o.owner.factionId then
+        local playerRank = player.type.getFactionRank(player, o.owner.factionId)
+        local requiredRank = o.owner.factionRank or 1
+        if playerRank < requiredRank then
+            return true
+        end
+    end
+
+    return false
 end
 
 return utils

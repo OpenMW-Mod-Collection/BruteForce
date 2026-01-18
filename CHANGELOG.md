@@ -1,5 +1,12 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 1.3
+
+### Features
+
+- New SFX for breaking and bending locks
+- Improved ownership checking
+
 ## 1.2.4
 
 ### Fixes

@@ -41,7 +41,7 @@ local function lockWasntJammed(data)
     L.giveCurrWeaponXp()
     L.wearWeapon(o, self)
 
-    if omw_utils.objectIsOwned(o) then
+    if omw_utils.objectIsOwned(o, self) then
         L.alertNpcs()
     end
 

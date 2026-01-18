@@ -16,6 +16,50 @@ local l10n = core.l10n("BruteForce")
 
 local logic = {}
 
+local function playSFX(o, unlocked)
+    if unlocked and o.type == types.Container then
+        core.sendGlobalEvent("PlaySound3d", {
+            file = "sound/container lock split.mp3",
+            position = self,
+            options = {
+                pitch = 1,
+                volume = 1.5,
+            },
+        })
+    elseif not unlocked and o.type == types.Container then
+        core.sendGlobalEvent("PlaySound3d", {
+            file = "sound/container lock bent.mp3",
+            position = self,
+            options = {
+                volume = .6
+            },
+        })
+    elseif unlocked and o.type == types.Door then
+        core.sendGlobalEvent("PlaySound3d", {
+            file = "sound/door lock split.mp3",
+            position = self,
+            options = {
+                volume = 1,
+            },
+        })
+        core.sendGlobalEvent("PlaySound3d", {
+            file = "sound/container lock split.mp3",
+            position = self,
+            options = {
+                pitch = .75
+            },
+        })
+    elseif not unlocked and o.type == types.Door then
+        core.sendGlobalEvent("PlaySound3d", {
+            file = "sound/door lock bent.mp3",
+            position = self,
+            options = {
+                volume = 1
+            },
+        })
+    end
+end
+
 function logic.registerAttack(o)
     return o
         and sectionDebug:get("modEnabled")
@@ -39,16 +83,20 @@ function logic.attackMissed(o)
 end
 
 function logic.unlock(o)
+    local unlocked = false
     if math.random() > sectionOnHit:get("jamChance") then
         -- unlock lock
         core.sendGlobalEvent("Unlock", { target = o })
-        return true
+        unlocked = true
     else
         -- jam lock
         core.sendGlobalEvent("setJammedLock", { id = o.id, val = true })
         omw_utils.displayMessage(self, l10n("lock_got_jammed"))
-        return false
     end
+
+    playSFX(o, unlocked)
+
+    return unlocked
 end
 
 function logic.giveCurrWeaponXp()
@@ -120,9 +168,9 @@ end
 function logic.damageIfH2h()
     local weaponSlot = types.Actor.EQUIPMENT_SLOT.CarriedRight
     local weapon = self.type.getEquipment(self, weaponSlot)
-    
+
     if weapon then return end
-    
+
     self:sendEvent("Hit", {
         sourceType = I.Combat.ATTACK_SOURCE_TYPES.Misc,
         strength = 1,
