@@ -4,7 +4,7 @@ local core = require("openmw.core")
 local I = require("openmw.interfaces")
 
 require("scripts.BruteForce.utils.consts")
-local omw_utils = require("scripts.BruteForce.utils.openmw_utils")
+require("scripts.BruteForce.utils.openmw_utils")
 
 local sectionDebug = storage.globalSection("SettingsBruteForce_debug")
 local l10n = core.l10n("BruteForce")
@@ -24,7 +24,8 @@ end
 local function checkJammedLock(data)
     if JammedLocks[data.o.id] and not sectionDebug:get("ignoreBentLocks") then
         data.sender:sendEvent("lockWasJammed", { o = data.o })
-        omw_utils.displayMessage(data.sender, l10n("lock_was_jammed"))
+        ---@diagnostic disable-next-line: missing-parameter
+        DisplayMessage(data.sender, l10n("lock_was_jammed"))
     else
         local o = data.o
 
@@ -45,7 +46,7 @@ local function setJammedLock(data)
 end
 
 local function addBounty(data)
-    omw_utils.addBounty(data.player, data.bounty)
+    AddBounty(data.player, data.bounty)
 end
 
 local function untrapObject(data)

@@ -7,9 +7,7 @@ require("scripts.BruteForce.utils.consts")
 local sectionDebug = storage.globalSection("SettingsBruteForce_debug")
 local l10n = core.l10n("BruteForce")
 
-local utils = {}
-
-function utils.getEquippedWeaponSkillId(actor)
+function GetEquippedWeaponSkillId(actor)
     local weapon = actor.type.getEquipment(actor, actor.type.EQUIPMENT_SLOT.CarriedRight)
     if weapon then
         local weaponType = weapon.type.records[weapon.recordId].type
@@ -19,7 +17,7 @@ function utils.getEquippedWeaponSkillId(actor)
     end
 end
 
-function utils.getEquippedWeaponSkill(actor)
+function GetEquippedWeaponSkill(actor)
     local weapon = actor.type.getEquipment(actor, actor.type.EQUIPMENT_SLOT.CarriedRight)
     if weapon then
         local weaponType = weapon.type.records[weapon.recordId].type
@@ -29,8 +27,8 @@ function utils.getEquippedWeaponSkill(actor)
     end
 end
 
-function utils.calcHitChance(actor)
-    local weaponSkill = utils.getEquippedWeaponSkill(actor).modified
+function CalcHitChance(actor)
+    local weaponSkill = GetEquippedWeaponSkill(actor).modified
     local agility = actor.type.stats.attributes.agility(actor).modified
     local luck = actor.type.stats.attributes.luck(actor).modified
 
@@ -53,7 +51,7 @@ end
 -- e.g. { ["Impact Effects.omwscripts"] = I.impactEffects == nil }
 -- if mod has no interfaces, set it's value to false
 -- e.g. { ["Some Mod.omwscripts"] = false }
-function utils.checkDependencies(player, dependencies)
+function CheckDependencies(player, dependencies)
     for fileName, interfaceMissing in pairs(dependencies) do
         local filePresent = core.contentFiles.has(string.lower(fileName))
         if not filePresent or interfaceMissing then
@@ -66,7 +64,7 @@ function utils.checkDependencies(player, dependencies)
     end
 end
 
-function utils.itemCanBeDamaged(item)
+function ItemCanBeDamaged(item)
     if not DamageableItemTypes[item.type] then return false end
 
     if item.type == types.Weapon then
@@ -77,18 +75,18 @@ function utils.itemCanBeDamaged(item)
     return true
 end
 
-function utils.displayMessage(actor, message)
+function DisplayMessage(actor, message)
     if sectionDebug:get("enableMessages") then
         actor:sendEvent('ShowMessage', { message = message })
     end
 end
 
-function utils.addBounty(actor, bounty)
+function AddBounty(actor, bounty)
     local currrentBounty = actor.type.getCrimeLevel(actor)
     actor.type.setCrimeLevel(actor, currrentBounty + bounty)
 end
 
-function utils.objectIsOwned(o, player)
+function ObjectIsOwned(o, player)
     if o.owner.recordId then
         return true
     end
@@ -103,5 +101,3 @@ function utils.objectIsOwned(o, player)
 
     return false
 end
-
-return utils
