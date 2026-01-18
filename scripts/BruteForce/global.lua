@@ -1,13 +1,12 @@
 local storage = require("openmw.storage")
 local types = require("openmw.types")
-local core = require("openmw.core")
 local I = require("openmw.interfaces")
 
 require("scripts.BruteForce.utils.consts")
 require("scripts.BruteForce.utils.openmw_utils")
+require("scripts.BruteForce.logic.lockBehavior")
 
 local sectionDebug = storage.globalSection("SettingsBruteForce_debug")
-local l10n = core.l10n("BruteForce")
 
 local function lockableOpen(o, actor)
     JammedLocks[o.id] = nil
@@ -23,36 +22,14 @@ end
 
 local function checkJammedLock(data)
     if JammedLocks[data.o.id] and not sectionDebug:get("ignoreBentLocks") then
-        data.sender:sendEvent("lockWasJammed", { o = data.o })
-        ---@diagnostic disable-next-line: missing-parameter
-        DisplayMessage(data.sender, l10n("lock_was_jammed"))
+        LockWasJammed(data.o, data.sender)
     else
-        local o = data.o
-
-        if types.Container.objectIsInstance(o) then
-            local inv = o.type.inventory(o)
-            -- populate container's leveled list if needed
-            if not inv:isResolved() then
-                inv:resolve()
-            end
-        end
-
-        data.sender:sendEvent("lockWasntJammed", { o = o })
+        LockWasntJammed(data.o, data.sender, JammedLocks)
     end
-end
-
-local function setJammedLock(data)
-    JammedLocks[data.id] = data.val
 end
 
 local function addBounty(data)
     AddBounty(data.player, data.bounty)
-end
-
-local function untrapObject(data)
-    local o = data.o
-    if not types.Lockable.objectIsInstance(o) then return end
-    o.type.setTrapSpell(o, nil)
 end
 
 I.Activation.addHandlerForType(types.Door, lockableOpen)
@@ -65,8 +42,6 @@ return {
     },
     eventHandlers = {
         checkJammedLock = checkJammedLock,
-        setJammedLock = setJammedLock,
         addBounty = addBounty,
-        untrapObject = untrapObject,
     },
 }

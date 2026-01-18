@@ -28,7 +28,7 @@ function GetEquippedWeaponSkill(actor)
 end
 
 function CalcHitChance(actor)
-    local weaponSkill = GetEquippedWeaponSkill(actor).modified
+    local weaponSkill  = GetEquippedWeaponSkill(actor).modified
     local agility = actor.type.stats.attributes.agility(actor).modified
     local luck = actor.type.stats.attributes.luck(actor).modified
 

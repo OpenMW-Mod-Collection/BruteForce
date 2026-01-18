@@ -28,9 +28,7 @@ function AttackMissed(o, actor)
         return true
     end
 
-    -- emulate hit chance
-    if not sectionDebug:get("enableMisses") then return false end
-    return math.random() > CalcHitChance(actor)
+    return math.random() > CalcHitChance(actor) and sectionDebug:get("enableMisses")
 end
 
 function DamageIfH2h(actor)
@@ -42,6 +40,7 @@ function DamageIfH2h(actor)
     actor:sendEvent("Hit", {
         sourceType = I.Combat.ATTACK_SOURCE_TYPES.Unspecified,
         strength = 1,
+        attacker = actor,
         damage = {
             health = sectionOnHit:get("damageOnH2h"),
         },
