@@ -49,6 +49,12 @@ I.Settings.registerGroup {
             renderer = 'checkbox',
             default = true,
         },
+        {
+            key = 'triggerNonLockedTraps',
+            name = 'triggerNonLockedTraps_name',
+            renderer = 'checkbox',
+            default = true,
+        },
     }
 }
 

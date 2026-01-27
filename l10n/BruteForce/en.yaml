@@ -35,6 +35,7 @@ damageOnH2h_name: Damage for Hitting a Lock with Fists
 damageOnH2h_description: Set it to 0 to disable this feature.
 damageOnH2hMisses_name: Enable H2H Damage on Misses
 damageOnH2hMisses_description: Disable to only deal damage on successful hits.
+triggerNonLockedTraps_name: Trigger Traps on Non-locked Objects
 
 onUnlock_group_name: On Unlock
 enableXpReward_name: Enable Weapon XP Reward

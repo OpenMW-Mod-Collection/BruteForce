@@ -14,7 +14,15 @@ function RegisterAttack(o)
     return o
         and sectionDebug:get("modEnabled")
         and types.Lockable.objectIsInstance(o)
-        and types.Lockable.isLocked(o)
+end
+
+function IsLocked(o)
+    return types.Lockable.isLocked(o)
+end
+
+function IsTrapped(o)
+    return o.type.getTrapSpell(o)
+        and sectionOnHit:get("triggerNonLockedTraps")
 end
 
 function AttackMissed(o, actor)
@@ -31,7 +39,9 @@ function AttackMissed(o, actor)
     return math.random() > CalcHitChance(actor) and sectionDebug:get("enableMisses")
 end
 
-function DamageIfH2h(actor)
+function DamageIfH2h(actor, missed)
+    if missed and sectionOnHit:get("damageOnH2hMisses") then return end
+
     local weaponSlot = types.Actor.EQUIPMENT_SLOT.CarriedRight
     local weapon = actor.type.getEquipment(actor, weaponSlot)
 
@@ -49,7 +59,7 @@ function DamageIfH2h(actor)
 end
 
 function WeaponTooWorn(o, actor)
-    if sectionOnUnlock:get("unlockWithBrokenWeapon") then return false end
+    if sectionOnHit:get("unlockWithBrokenWeapon") then return false end
 
     local weaponSlot = types.Actor.EQUIPMENT_SLOT.CarriedRight
     local weapon = actor.type.getEquipment(actor, weaponSlot)

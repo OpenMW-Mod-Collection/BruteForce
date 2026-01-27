@@ -1,4 +1,3 @@
-local storage = require("openmw.storage")
 local self = require("openmw.self")
 local core = require("openmw.core")
 local I = require("openmw.interfaces")
@@ -8,21 +7,22 @@ require("scripts.BruteForce.logic.onHit")
 require("scripts.BruteForce.logic.alerting")
 require("scripts.BruteForce.utils.openmw_utils")
 
-local sectionOnHit = storage.globalSection("SettingsBruteForce_onHit")
-
 local function onObjectHit(o, var, res)
     if not RegisterAttack(o) then return end
 
-    if AttackMissed(o, self) or WeaponTooWorn(o, self) then
-        if sectionOnHit:get("damageOnH2hMisses") then
-            DamageIfH2h(self)
+    if not IsLocked(o) then
+        if IsTrapped(o) then
+            core.sendGlobalEvent("TriggerTrap", { o = o, player = self })
         end
         return
     end
 
-    DamageIfH2h(self)
+    local missed = AttackMissed(o, self) or WeaponTooWorn(o, self)
+    DamageIfH2h(self, missed)
 
-    core.sendGlobalEvent("checkJammedLock", { o = o, sender = self })
+    if missed then return end
+
+    core.sendGlobalEvent("CheckJammedLock", { o = o, sender = self })
 end
 
 local function giveCurrWeaponXp()

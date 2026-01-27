@@ -6,6 +6,7 @@
 
 - New SFX for breaking and bending locks
 - Breaking trapped locks trigger traps
+- Hitting non-locked objects trigger traps too
 - Improved ownership checking
 - Restructured code. Hopefully, everything has been left in tact
 

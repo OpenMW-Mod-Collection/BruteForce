@@ -48,7 +48,7 @@ function AlertNpcs(actor)
         local hearsPlayer = IsWithinDistance(nearbyActor, actor, soundRange)
 
         if isNPC and not isPlayer and (seesPlayer or hearsPlayer) then
-            core.sendGlobalEvent("addBounty", { player = actor, bounty = bounty })
+            core.sendGlobalEvent("AddBounty", { player = actor, bounty = bounty })
             aggroGuards(actor)
             break
         end
