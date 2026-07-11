@@ -2,6 +2,7 @@ local core = require("openmw.core")
 local types = require("openmw.types")
 local storage = require("openmw.storage")
 local nearby = require("openmw.nearby")
+local I = require("openmw.interfaces")
 
 require("scripts.BruteForce.utils.openmw_utils")
 require("scripts.BruteForce.utils.detection")
@@ -27,7 +28,7 @@ local function aggroGuards(actor)
     end
 end
 
-function AlertNpcs(actor)
+function AlertNpcs(player)
     local bounty = sectionOnUnlock:get("bounty")
     if bounty <= 0 then return end
 
@@ -35,21 +36,31 @@ function AlertNpcs(actor)
     local losMaxDistSneakModifier = sectionAlerting:get("losMaxDistSneakModifier")
     local soundRangeBase = sectionAlerting:get("soundRangeBase")
     local soundRangeWeaponSkillModifier = sectionAlerting:get("soundRangeWeaponSkillModifier")
-    local sneak = actor.type.stats.skills.sneak(actor).modified
-    local weaponSkill = GetEquippedWeaponSkill(actor).modified
+    local sneak = player.type.stats.skills.sneak(player).modified
+    local weaponSkill = GetEquippedWeaponSkill(player).modified
 
     local losMaxDist = losMaxDistBase - sneak * losMaxDistSneakModifier
     local soundRange = soundRangeBase - weaponSkill * soundRangeWeaponSkillModifier
 
-    for _, nearbyActor in ipairs(nearby.actors) do
-        local isNPC       = types.NPC.objectIsInstance(nearbyActor)
-        local isPlayer    = types.Player.objectIsInstance(nearbyActor)
-        local seesPlayer  = CanNpcSeePlayer(nearbyActor, actor, nearby, losMaxDist)
-        local hearsPlayer = IsWithinDistance(nearbyActor, actor, soundRange)
+    local followers = I.FollowerDetectionUtil
+        and I.FollowerDetectionUtil.getFollowerList().followers
+        or {}
 
-        if isNPC and not isPlayer and (seesPlayer or hearsPlayer) then
-            core.sendGlobalEvent("AddBounty", { player = actor, bounty = bounty })
-            aggroGuards(actor)
+    for _, actor in ipairs(nearby.actors) do
+        local isNPC       = types.NPC.objectIsInstance(actor)
+        local isPlayer    = types.Player.objectIsInstance(actor)
+        local isFollower  = followers[actor.id]
+        local seesPlayer  = CanNpcSeePlayer(actor, player, nearby, losMaxDist)
+        local hearsPlayer = IsWithinDistance(actor, player, soundRange)
+
+        local busted = isNPC
+            and not isPlayer
+            and not not isFollower
+            and (seesPlayer or hearsPlayer)
+
+        if busted then
+            core.sendGlobalEvent("AddBounty", { player = player, bounty = bounty })
+            aggroGuards(player)
             break
         end
     end

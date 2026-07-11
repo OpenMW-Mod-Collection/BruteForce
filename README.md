@@ -8,9 +8,10 @@ Thieves have lockpicks, wizards have spells, and what do barbarians have? A skil
 
 ### Split That Bastard in Half!
 
-By hitting a locked door or container, you might strike the lock and force it open.  
-The requirement is simple enough that any barbarian can figure it out:  
-**Strength vs Lock Level + 25 (configurable)**  
+By hitting a locked door or container, you might strike the lock and force it open.  The requirement is simple enough that any barbarian can figure it out:
+
+> Strength vs Lock Level + 25 (configurable)
+
 So bring some sujamma next time you go adventuring.
 
 Your weapon doesn't matter - but your skills do. The mod follows the vanilla hit chance formula, so that pesky little lock might still be tricky to hit.
@@ -21,8 +22,7 @@ But be careful!
 
 ### Don't Bend the Lock!
 
-Since you're all brawn and no brains, you might just hit it the wrong way.  
-Any lock has a **15% chance** to get bent in the process (configurable) and no longer "breakable", so keep a few Scrolls of Ondusi's Unhinging or an enchanted item handy.
+Since you're all brawn and no brains, you might just hit it the wrong way. Any lock has a **15% chance** to get bent in the process (configurable) and no longer "breakable", so keep a few Scrolls of Ondusi's Unhinging or an enchanted item handy.
 
 This helps tone down the effectiveness of absurdly strong barbarians breaking every door in their way just by looking in their general direction.
 
@@ -37,18 +37,20 @@ If you hit an owned lock, two things happen for each present NPC:
 1. **A long-distance line of sight check** (influenced by Sneak level) - NPC turns their head toward the noise and sees you with a weapon. Imagine the look on their face.
 2. **A shorter-distance sound check** (influenced by Weapon Skill level) - NPC hears the loud noise even through a wall. Your crime is reported immediately.
 
-At first I thought that it would be too restrictive. But let's be real - barbarians aren't supposed to be super good at thievery in the first place. They don't avoid combat - they initiate it!  
+At first I thought that it would be too restrictive. But let's be real - barbarians aren't supposed to be super good at thievery in the first place. They don't avoid combat - they initiate it!
+
 All values, of course, are configurable too.
 
 ## Requirements
 
-[**Impact Effects**](https://www.nexusmods.com/morrowind/mods/55508) by taitechnic is a hard requirement.
-**Load Brute Force after Impact Effects!**
+- [Impact Effects](https://www.nexusmods.com/morrowind/mods/55508) - hard requirement, load before Brute Force
+- [Follower Detection Util](https://www.nexusmods.com/morrowind/mods/58053) - soft requirement, load order is irrelevant. Used for checking for followers when breaking owned locks
 
 ## Consider Also
 
-- [SHOP](https://www.nexusmods.com/morrowind/mods/57747) by **skrow42** - Allows NPC to bash doors too!
-- [Oblivion-Style Lockpicking](https://www.nexusmods.com/morrowind/mods/56355) by **Ralts** - Completely overhauls lockpicking mechanic making it an actual mini-game
+- [SHOP](https://www.nexusmods.com/morrowind/mods/57747) by **skrow42**
+- [Oblivion-Style Lockpicking](https://www.nexusmods.com/morrowind/mods/56355) by **Ralts**
+- [Skyrim-Inspired Lockpicking](https://www.nexusmods.com/morrowind/mods/58747) by **ZimAxPlomba**
 
 ## Special Thanks
 

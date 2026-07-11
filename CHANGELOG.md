@@ -1,5 +1,9 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 1.4
+
+- Added follower checks when breaking owned lock. Requires Follower Detection Util to work, but it's not enforced
+
 ## 1.3
 
 ### Features
