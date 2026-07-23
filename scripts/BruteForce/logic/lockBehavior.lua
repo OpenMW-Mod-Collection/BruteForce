@@ -30,6 +30,10 @@ function LockWasntJammed(o, player, jammedLocks)
     if types.Container.objectIsInstance(o) then
         DamageContainerEquipment(o)
     end
+
+    if not types.Door.destCell(o) then
+        types.Door.activateDoor(o, true)
+    end
 end
 
 function LockWasJammed(o, player)
