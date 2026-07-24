@@ -31,9 +31,6 @@ end
 local function addBounty(data)
     AddBounty(data.player, data.bounty)
 end
-local function triggerTrap(data)
-    TriggerTrap(data.o, data.player)
-end
 
 I.Activation.addHandlerForType(types.Door, lockableOpen)
 I.Activation.addHandlerForType(types.Container, lockableOpen)
@@ -46,6 +43,5 @@ return {
     eventHandlers = {
         CheckJammedLock = checkJammedLock,
         AddBounty = addBounty,
-        TriggerTrap = triggerTrap,
     },
 }

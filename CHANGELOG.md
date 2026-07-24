@@ -1,5 +1,9 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 1.5.1
+
+- Added Hidden Traps support
+
 ## 1.5
 
 - Breaking a lock on a door now also opens it

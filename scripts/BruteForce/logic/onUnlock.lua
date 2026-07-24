@@ -52,24 +52,6 @@ function GiveCurrWeaponXp(actor)
     actor:sendEvent("GiveCurrWeaponXp")
 end
 
-function TriggerTrap(o, actor)
-    local spell = o.type.getTrapSpell(o)
-
-    -- disarm trap
-    o.type.setTrapSpell(o, nil)
-
-    -- fire a spell on an actor
-    local effectsWithParams = core.magic.spells.records[spell.id].effects
-    local effects = {}
-    for _, effect in ipairs(effectsWithParams) do
-        table.insert(effects, effect.index)
-    end
-    actor.type.activeSpells(actor):add({
-        id = spell.id,
-        effects = effects
-    })
-end
-
 function DamageContainerEquipment(o)
     if not sectionOnUnlock:get("damageContents") then return end
 

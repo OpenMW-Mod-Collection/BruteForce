@@ -12,7 +12,7 @@ local function onObjectHit(o, var, res)
 
     if not IsLocked(o) then
         if IsTrapped(o) then
-            core.sendGlobalEvent("TriggerTrap", { o = o, player = self })
+            o:activateBy(self)
         end
         return
     end
@@ -43,5 +43,8 @@ return {
     eventHandlers = {
         GiveCurrWeaponXp = giveCurrWeaponXp,
         AggroGuards = aggroGuards,
+        BruteForce_delayedActivation = function(o)
+            o:activateBy(self)
+        end
     }
 }

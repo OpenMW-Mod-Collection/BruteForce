@@ -46,6 +46,12 @@ All values, of course, are configurable too.
 - [Impact Effects](https://www.nexusmods.com/morrowind/mods/55508) - hard requirement, load before Brute Force
 - [Follower Detection Util](https://www.nexusmods.com/morrowind/mods/58053) - soft requirement, load order is irrelevant. Used for checking for followers when breaking owned locks
 
+## Compatibility
+
+Should be compatible with about anything.
+
+Compatible with [Hidden Traps](https://www.nexusmods.com/morrowind/mods/59667). Load order doesn't matter.
+
 ## Consider Also
 
 - [SHOP](https://www.nexusmods.com/morrowind/mods/57747) by **skrow42**
