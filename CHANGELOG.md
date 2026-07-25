@@ -1,5 +1,11 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 1.5.2
+
+- Fixed issue when bashing trapped containers with Hidden Traps
+- Fixed bashing a trapped door/container with Hidden Traps triggering Convenient Thief Tools's probe equipment instead of the trap (thx Foxunder)
+- Compatible only with Hidden Traps 1.0.2 or newer
+
 ## 1.5.1
 
 - Added Hidden Traps support

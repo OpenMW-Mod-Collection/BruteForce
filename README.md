@@ -50,7 +50,7 @@ All values, of course, are configurable too.
 
 Should be compatible with about anything.
 
-Compatible with [Hidden Traps](https://www.nexusmods.com/morrowind/mods/59667). Load order doesn't matter.
+Compatible with [Hidden Traps](https://www.nexusmods.com/morrowind/mods/59667) 1.0.2 or newer. Load order doesn't matter.
 
 ## Consider Also
 

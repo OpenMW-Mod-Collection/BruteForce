@@ -2,6 +2,7 @@ local core = require("openmw.core")
 local storage = require("openmw.storage")
 local types = require("openmw.types")
 local I = require("openmw.interfaces")
+local world = require("openmw.world")
 
 require("scripts.BruteForce.logic.onUnlock")
 
@@ -9,16 +10,14 @@ local sectionOnUnlock = storage.globalSection("SettingsBruteForce_onUnlock")
 local l10n = core.l10n("BruteForce")
 
 local function triggerTrap(o, player)
-    if sectionOnUnlock:get("triggerTraps") then
-        if o.type.getTrapSpell(o) then
-            o:activateBy(player)
-        elseif I.HTrapsGlobal then
-            -- Hidden Traps support
-            -- https://www.nexusmods.com/morrowind/mods/59667
-            I.HTrapsGlobal.revealTrap(o, "Brute Force lock broken")
-            -- need 1 frame delay for the trap to become real
-            player:sendEvent("BruteForce_delayedActivation", o)
-        end
+    if not sectionOnUnlock:get("triggerTraps") then return end
+    -- Hidden Traps support
+    -- https://www.nexusmods.com/morrowind/mods/59667
+    if I.HTrapsGlobal and I.HTrapsGlobal.isTrapped(o) and I.HTrapsGlobal.springTrap then
+        I.HTrapsGlobal.springTrap(o, player, "Brute Force: Lock split")
+    elseif o.type.getTrapSpell(o) then
+        ---@diagnostic disable-next-line: undefined-field
+        world._runStandardActivationAction(o, player)
     end
 end
 
@@ -41,10 +40,10 @@ function LockWasntJammed(o, player, jammedLocks)
 
     if types.Container.objectIsInstance(o) then
         DamageContainerEquipment(o)
-    end
-
-    if not types.Door.destCell(o) then
-        types.Door.activateDoor(o, true)
+    elseif types.Door.objectIsInstance(o) then
+        if not types.Door.destCell(o) then
+            types.Door.activateDoor(o, true)
+        end
     end
 end
 

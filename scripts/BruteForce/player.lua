@@ -43,8 +43,5 @@ return {
     eventHandlers = {
         GiveCurrWeaponXp = giveCurrWeaponXp,
         AggroGuards = aggroGuards,
-        BruteForce_delayedActivation = function(o)
-            o:activateBy(self)
-        end
     }
 }
