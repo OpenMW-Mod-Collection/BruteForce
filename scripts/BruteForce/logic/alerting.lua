@@ -55,7 +55,7 @@ function AlertNpcs(player)
 
         local busted = isNPC
             and not isPlayer
-            and not not isFollower
+            and not isFollower
             and (seesPlayer or hearsPlayer)
 
         if busted then

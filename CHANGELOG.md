@@ -1,5 +1,9 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 1.5.3
+
+- Fixed crime detection
+
 ## 1.5.2
 
 - Fixed issue when bashing trapped containers with Hidden Traps
