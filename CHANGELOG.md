@@ -1,5 +1,24 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 2.0
+
+- Major code refactor. Not a single file has been left unchanged
+- Made a complete overhaul of the mod settings with new and fancy settings renderers
+- Miniscule optimizations
+- Made the dependency check more intrusive
+- Made hit chance calculation respect GMSTs
+- Replaced the homebrew crime system with I.Crimes, making it more robust
+- Due to the switch to I.Crimes, you also get severly smaller bounties for trespassing (only 5 gold in vanilla)
+- Swinging at a lock and missing is now considered a crime, though it does not make any sound
+- Hitting a bent lock now makes a sound and is considered a crime
+- Sound check is now calculated from the object instead of from the player
+- Added the min hit chance setting
+- Damage recieved from punching the locks now scales with lock level. Missed hits deal less damage to you
+- Renamed events to prevent potential collisions with other mods
+- Fixed Convenient Thief Tools issue when attacking trapped doors/containers with no locks
+
+> Note: If you're updating mid-playthrough to 2.0, the mod won't carry over the list of bent locks. Not that it's something critical, but worth mentioning
+
 ## 1.5.3
 
 - Fixed crime detection

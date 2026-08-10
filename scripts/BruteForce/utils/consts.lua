@@ -1,15 +1,11 @@
 local types = require("openmw.types")
-local I = require("openmw.interfaces")
 
-Dependencies = {
-    ["Impact Effects.omwscripts"] = I.impactEffects == nil,
-}
-
-JammedLocks = {}
+local c = {}
 
 local wTypes = types.Weapon.TYPE
 local pSkills = types.Player.stats.skills
-WeaponTypeToSkill = {
+
+c.weaponTypeToSkillGetter = {
     [wTypes.AxeOneHand]        = pSkills.axe,
     [wTypes.AxeTwoHand]        = pSkills.axe,
     [wTypes.BluntOneHand]      = pSkills.bluntweapon,
@@ -20,7 +16,8 @@ WeaponTypeToSkill = {
     [wTypes.ShortBladeOneHand] = pSkills.shortblade,
     [wTypes.SpearTwoWide]      = pSkills.spear,
 }
-WeaponTypeToSkillId = {
+
+c.weaponTypeToSkillId = {
     [wTypes.AxeOneHand]        = "axe",
     [wTypes.AxeTwoHand]        = "axe",
     [wTypes.BluntOneHand]      = "bluntweapon",
@@ -32,12 +29,14 @@ WeaponTypeToSkillId = {
     [wTypes.SpearTwoWide]      = "spear",
 }
 
-DamageableItemTypes = {
+c.damageableItemTypes = {
     [types.Weapon] = true,
     [types.Armor]  = true,
 }
-NonDamageableWeaponTypes = {
+c.nonDamageableWeaponTypes = {
     [wTypes.Arrow]          = true,
     [wTypes.Bolt]           = true,
     [wTypes.MarksmanThrown] = true,
 }
+
+return c

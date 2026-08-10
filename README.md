@@ -8,7 +8,7 @@ Thieves have lockpicks, wizards have spells, and what do barbarians have? A skil
 
 ### Split That Bastard in Half!
 
-By hitting a locked door or container, you might strike the lock and force it open.  The requirement is simple enough that any barbarian can figure it out:
+By hitting a locked door or container, you might strike the lock and force it open. The requirement is simple enough that any barbarian can figure it out:
 
 > Strength vs Lock Level + 25 (configurable)
 
@@ -34,7 +34,7 @@ It shouldn't be a surprise that hitting a lock with a chunk of metal (or anythin
 
 If you hit an owned lock, two things happen for each present NPC:
 
-1. **A long-distance line of sight check** (influenced by Sneak level) - NPC turns their head toward the noise and sees you with a weapon. Imagine the look on their face.
+1. **A regular vanilla sneak check** - NPC turns their head toward the noise and sees you with a weapon. Imagine the look on their face.
 2. **A shorter-distance sound check** (influenced by Weapon Skill level) - NPC hears the loud noise even through a wall. Your crime is reported immediately.
 
 At first I thought that it would be too restrictive. But let's be real - barbarians aren't supposed to be super good at thievery in the first place. They don't avoid combat - they initiate it!
@@ -54,13 +54,19 @@ Compatible with [Hidden Traps](https://www.nexusmods.com/morrowind/mods/59667) 1
 
 ## Consider Also
 
-- [SHOP](https://www.nexusmods.com/morrowind/mods/57747) by **skrow42**
-- [Oblivion-Style Lockpicking](https://www.nexusmods.com/morrowind/mods/56355) by **Ralts**
-- [Skyrim-Inspired Lockpicking](https://www.nexusmods.com/morrowind/mods/58747) by **ZimAxPlomba**
+- [Criminal Scum - Bounty Adjustments](https://www.nexusmods.com/morrowind/mods/56133) or [CBT - Crime Bounty Tweaks](https://www.nexusmods.com/morrowind/mods/53704) - in vanilla, trespassing grants you only 5 gold worth of bounty
+- [Hidden Traps](https://www.nexusmods.com/morrowind/mods/59667)
+- [Burglary Overhaul](https://www.nexusmods.com/morrowind/mods/56965)
+- [Sneak Fatigue Drain](https://www.nexusmods.com/morrowind/mods/58433)
+- [No Witness - No Bounty](https://www.nexusmods.com/morrowind/mods/53384)
+- [Dead Mer Tell No Tales](https://www.nexusmods.com/morrowind/mods/57431)
+- [Clear Your Name](https://www.nexusmods.com/morrowind/mods/43786)
 
 ## Special Thanks
 
-**taitechnic** - making Impact Effects, which is core to this mod and a fantastic mod by itself.  
-**AOSity** - idea for alarming NPCs when breaking an owned lock.  
+**taitechnic** - making Impact Effects, which is core to this mod and a fantastic mod by itself  
+**AOSity** - idea for alarming NPCs when breaking an owned lock  
 **skrow42** - code snippet for LOS NPC detection taken from his [SHOP](https://www.nexusmods.com/morrowind/mods/57747) mod  
-**S3ctor** - helping navigate the API's quirks
+**S3ctor** - helping navigate the API's quirks  
+**ownlyme** - slider settings renderer ([Super Settings Renderers](https://www.nexusmods.com/morrowind/mods/59673))  
+**SorreFalcon** - multiselect and multinumber input settings renderers ([Sorre's Custom Renderers](https://www.nexusmods.com/morrowind/mods/59808))

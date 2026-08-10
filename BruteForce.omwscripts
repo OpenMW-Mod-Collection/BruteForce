@@ -1,5 +1,8 @@
-PLAYER: scripts/BruteForce/player.lua
-GLOBAL: scripts/BruteForce/global.lua
+MENU: scripts/BruteForce/utils/customSettingRenderers/SuperSlider6.lua
+MENU: scripts/BruteForce/utils/customSettingRenderers/sorresRenderers.lua
 
 MENU: scripts/BruteForce/settingsMenu.lua
 GLOBAL: scripts/BruteForce/settingsGlobal.lua
+
+PLAYER: scripts/BruteForce/player.lua
+GLOBAL: scripts/BruteForce/global.lua

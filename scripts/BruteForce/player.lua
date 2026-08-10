@@ -1,47 +1,79 @@
 local self = require("openmw.self")
 local core = require("openmw.core")
 local I = require("openmw.interfaces")
+local storage = require("openmw.storage")
+local types = require("openmw.types")
+local nearby = require("openmw.nearby")
+local async = require("openmw.async")
+local sounds= require("scripts.BruteForce.logic.sounds")
 
-require("scripts.BruteForce.utils.consts")
-require("scripts.BruteForce.logic.onHit")
-require("scripts.BruteForce.logic.alerting")
-require("scripts.BruteForce.utils.openmw_utils")
+local deps = require("scripts.BruteForce.utils.dependencies")
+local consts = require("scripts.BruteForce.utils.consts")
+local crimes = require("scripts.BruteForce.logic.crimes")
+local hits = require("scripts.BruteForce.logic.hits")
+local settingsCache = require("scripts.BruteForce.utils.settingsCache")
 
-local function onObjectHit(o, var, res)
-    if not RegisterAttack(o) then return end
+deps.checkAll(
+    "Brute Force",
+    { {
+        interface = I.impactEffects,
+        plugin = "Impact Effects.omwscripts"
+    } }
+)
 
-    if not IsLocked(o) then
-        if IsTrapped(o) then
-            o:activateBy(self)
+local settingsLocks = settingsCache.new(storage.globalSection("SettingsBruteForce_locks"), async)
+local settingsAlerting = settingsCache.new(storage.globalSection("SettingsBruteForce_alerting"), async)
+local settingsDebug = settingsCache.new(storage.globalSection("SettingsBruteForce_debug"), async)
+
+local weaponSlot = self.type.EQUIPMENT_SLOT.CarriedRight
+local skillUsedOptions = { useType = I.SkillProgression.SKILL_USE_TYPES.Weapon_SuccessfulHit }
+
+local function onObjectHit(obj, var, res)
+    local hitSuccessful = obj and types.Lockable.objectIsInstance(obj)
+    if not hitSuccessful or not settingsDebug.modEnabled then
+        return
+    end
+
+    if not types.Lockable.isLocked(obj) then
+        if obj.type.getTrapSpell(obj) and settingsLocks.triggerTrapsOn.notLocked then
+            core.sendGlobalEvent("BruteForce_runStandardActivationAction", { object = obj, actor = self })
         end
         return
     end
 
-    local missed = AttackMissed(o, self) or WeaponTooWorn(o, self)
-    DamageIfH2h(self, missed)
+    local lockLevel = types.Lockable.getLockLevel(obj)
+    local weapon = self.type.getEquipment(self, weaponSlot)
+    local missed = hits.attackMissed(lockLevel) or hits.weaponTooWorn(weapon, lockLevel)
 
-    if missed then return end
+    if not weapon then
+        hits.getFistsDamaged(missed, lockLevel)
+    end
 
-    core.sendGlobalEvent("CheckJammedLock", { o = o, sender = self })
+    if missed then
+        if settingsAlerting.missingIsACrime then
+            crimes.commitCrime(obj, self, nearby.actors, false)
+        end
+        if obj.type.getTrapSpell(obj) and settingsLocks.triggerTrapsOn.missed then
+            core.sendGlobalEvent("BruteForce_runStandardActivationAction", { object = obj, actor = self })
+        end
+        return
+    end
+
+    core.sendGlobalEvent("BruteForce_tryUnlocking", { obj = obj, player = self })
 end
 
 local function giveCurrWeaponXp()
-    I.SkillProgression.skillUsed(
-        GetEquippedWeaponSkillId(self),
-        { useType = I.SkillProgression.SKILL_USE_TYPES.Weapon_SuccessfulHit }
-    )
+    local weapon = self.type.getEquipment(self, weaponSlot)
+    local skillId = weapon
+        and consts.weaponTypeToSkillId[weapon.type.records[weapon.recordId].type]
+        or "handtohand"
+    I.SkillProgression.skillUsed(skillId, skillUsedOptions)
 end
 
-local function aggroGuards()
-    AlertNpcs(self)
-end
-
-CheckDependencies(self, Dependencies)
 I.impactEffects.addHitObjectHandler(onObjectHit)
 
 return {
     eventHandlers = {
-        GiveCurrWeaponXp = giveCurrWeaponXp,
-        AggroGuards = aggroGuards,
+        BruteForce_GiveCurrWeaponXp = giveCurrWeaponXp,
     }
 }
