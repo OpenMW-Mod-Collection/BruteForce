@@ -91,6 +91,7 @@ I.Settings.registerGroup {
                 notLocked = true,
             },
             argument = {
+                buttonWidth = 120,
                 keys = {
                     "split",
                     "bent",
