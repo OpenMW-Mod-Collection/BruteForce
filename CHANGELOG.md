@@ -1,5 +1,9 @@
 # Brute Force - Lockpicking for Barbarians (OpenMW)
 
+## 2.0.2
+
+- Fixed an error I don't even know how happens
+
 ## 2.0.1
 
 - Updated Sorre's Settings Renderers
