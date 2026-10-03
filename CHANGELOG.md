@@ -2,7 +2,7 @@
 
 ## 2.0.2
 
-- Fixed an error I don't even know how happens
+- Fixed an error when hitting not locked trapped container
 
 ## 2.0.1
 

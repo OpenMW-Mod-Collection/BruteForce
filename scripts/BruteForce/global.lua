@@ -81,8 +81,7 @@ return {
     eventHandlers = {
         BruteForce_tryUnlocking = tryUnlocking,
         BruteForce_runStandardActivationAction = function(data)
-            if not data.o or not data.player then return end
-            world._runStandardActivationAction(data.o, data.player)
+            world._runStandardActivationAction(data.o, data.actor)
         end
     },
 }
